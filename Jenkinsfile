@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('clon repository') {
             steps {
-                git credentialsId: 'GithubPAToken', url: '', branch: 'ops1'
+                git credentialsId: 'GithubPAToken', url: 'https://github.com/MVLogix/heyreactapp.git', branch: 'main'
             }
         }
         
@@ -27,7 +27,7 @@ pipeline {
 	stage('deploy to s3') {
             steps {
                 withAWS(region: 'ap-south-1', credentials: 'aws_access_key_token') {
-                    sh 'aws s3 cp ./dist s3://apach2-srv-data-btk/ --recursive'
+                    sh 'aws s3 cp ./build s3://apach2-srv-data-btk/ --recursive'
                 }
             }
         }
